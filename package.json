@@ -1,0 +1,27 @@
+{
+  "name": "dwapp",
+  "version": "0.0.1",
+  "private": true,
+  "description": "distributed web application",
+  "author": "vgaluchot",
+  "license": "ISC",
+  "dependencies": {
+    "websocket": "^1.0.31"
+  },
+  "engines": {
+    "node": ">14.8.0"
+  },
+  "main": "server/app.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/app.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VivienGaluchot/dwapp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/VivienGaluchot/dwapp/issues"
+  },
+  "homepage": "https://github.com/VivienGaluchot/dwapp#readme"
+}

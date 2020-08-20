@@ -1,0 +1,27 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+header {
+    flex-grow: 0;
+}
+
+content {
+    flex-grow: 1;
+    position: relative;
+}
+
+footer {
+    background-color: #DDDDDD;
+    flex-grow: 0;
+}
