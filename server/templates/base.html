@@ -9,24 +9,26 @@
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
 
-  <title>dwapp</title>
+  <title>{% block title %}dwapp{% endblock %}</title>
 </head>
 
 <body>
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="index.html">dwapp</a>
+      <a class="navbar-brand" href="/">dwapp</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Home</a>
+          <li class="nav-item{%if templateName == 'index' %} active{% endif %}">
+            <a class="nav-link" href="/">Home{%if templateName == 'index' %} <span
+                class="sr-only">(current)</span>{% endif %}</a>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="try-it.html">Try-it <span class="sr-only">(current)</span></a>
+          <li class="nav-item{%if templateName == 'try-it' %} active{% endif %}">
+            <a class="nav-link" href="/try-it">Try-it{%if templateName == 'try-it' %} <span
+                class="sr-only">(current)</span>{% endif %}</a>
           </li>
         </ul>
         <div class="form-inline my-2 my-lg-0">
@@ -38,13 +40,13 @@
 
   <content>
     <div class="container-fluid">
-      <h1>Try-it</h1>
+      {% block content %}{% endblock %}
     </div>
   </content>
 
   <footer>
     <div class="container-fluid">
-      <div class="text-center py-3">Hi !
+      <div class="text-center py-3"><a href="https://github.com/VivienGaluchot/dwapp">Open source</a>
       </div>
     </div>
   </footer>

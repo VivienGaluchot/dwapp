@@ -6,6 +6,7 @@
   "author": "vgaluchot",
   "license": "ISC",
   "dependencies": {
+    "nunjucks": "^3.2.2",
     "websocket": "^1.0.31"
   },
   "engines": {
