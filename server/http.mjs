@@ -14,6 +14,7 @@ import nunjucks from 'nunjucks';
 
 let mimeMap = new Map();
 mimeMap.set(".js", "application/javascript");
+mimeMap.set(".mjs", "application/javascript");
 mimeMap.set(".json", "application/json");
 mimeMap.set(".css", "text/css");
 mimeMap.set(".jpeg", "image/jpeg");
