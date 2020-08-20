@@ -1,33 +1,59 @@
 import dwapp from './dwapp.mjs';
 
-function run() {
-    let okCount = 0;
-    let koCount = 0;
+class TestReporter {
+    constructor() {
+        this.okCount = 0;
+        this.koCount = 0;
+    }
 
-    console.log(`# DWAPP test run`);
+    onStart() { }
 
-    function title(title) {
+    onSection(title) { }
+
+    onUnit(what, isOk) {
+        if (isOk) {
+            this.okCount++;
+        } else {
+            this.koCount++;
+        }
+    }
+
+    onEnd() { }
+}
+
+class LogTestReporter extends TestReporter {
+    onStart() {
+        super.onStart();
+        console.log(`# DWAPP test run`);
+    }
+
+    onSection(title) {
+        super.onSection(title);
         console.log(`## ${title}`);
     }
 
-    function unit(what, isOk) {
-        if (isOk) {
-            okCount++;
-        } else {
-            koCount++;
-        }
+    onUnit(what, isOk) {
+        super.onUnit(what, isOk);
         console.log(`- TEST ${what} - ${isOk ? "OK" : "KO"}`);
     }
 
-    title('API');
-    unit('dwapp version', dwapp.version == '0.0.0');
-
-    console.log(`## Recap`);
-    if (koCount == 0 && okCount > 0) {
-        console.log(`SUCCESS (OK ${okCount}) (KO ${koCount})`);
-    } else {
-        console.log(`FAILURE (OK ${okCount}) (KO ${koCount})`);
+    onEnd() {
+        super.onEnd();
+        console.log(`## Recap`);
+        if (this.koCount == 0 && this.okCount > 0) {
+            console.log(`SUCCESS (OK ${this.okCount}) (KO ${this.koCount})`);
+        } else {
+            console.log(`FAILURE (OK ${this.okCount}) (KO ${this.koCount})`);
+        }
     }
 }
 
-export default { run };
+function run(reporter = new LogTestReporter()) {
+    reporter.onStart();
+    reporter.onSection('API');
+    reporter.onUnit('dwapp version defined', dwapp.version !== undefined);
+    reporter.onUnit('dwapp version well defined', dwapp.version == '0.0.0');
+    reporter.onEnd();
+}
+
+export default { run, TestReporter };
