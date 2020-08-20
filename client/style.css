@@ -12,16 +12,16 @@ body {
     height: 100%;
 }
 
-header {
+body>header {
     flex-grow: 0;
 }
 
-content {
+body>content {
     flex-grow: 1;
     position: relative;
 }
 
-footer {
+body>footer {
     background-color: #DDDDDD;
     flex-grow: 0;
 }

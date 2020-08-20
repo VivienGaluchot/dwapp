@@ -45,7 +45,7 @@ export function initHttpServer() {
         });
     }
 
-    // templating
+    // template
 
     nunjucks.configure('server/templates', { autoescape: true });
 
@@ -62,12 +62,28 @@ export function initHttpServer() {
         }
     }
 
-    let indexView = (request, response) => {
+    // views
+
+    const indexView = (request, response) => {
         sendTemplate("index.html", "index", request, response);
     }
-    let tryItView = (request, response) => {
+    const tryItView = (request, response) => {
         sendTemplate("try-it.html", "try-it", request, response);
     }
+    const gettingStartedView = (request, response) => {
+        sendTemplate("getting-started.html", "getting-started", request, response);
+    }
+
+    // pages
+
+    let urlMap = new Map();
+    urlMap.set("/", indexView);
+    urlMap.set("/index", indexView);
+    urlMap.set("/index.html", indexView);
+    urlMap.set("/try-it", tryItView);
+    urlMap.set("/try-it.html", tryItView);
+    urlMap.set("/getting-started", gettingStartedView);
+    urlMap.set("/getting-started.html", gettingStartedView);
 
     // server
 
@@ -79,10 +95,9 @@ export function initHttpServer() {
 
     const httpServer = http.createServer(function (request, response) {
         var pathname = url.parse(request.url).pathname;
-        if (pathname == "/" || pathname == "/index" || pathname == "/index.html") {
-            indexView(request, response);
-        } else if (pathname == "/try-it" || pathname == "/try-it.html") {
-            tryItView(request, response);
+        let view = urlMap.get(pathname);
+        if (view) {
+            view(request, response);
         } else {
             sendFile("./client/" + pathname, response);
         }
