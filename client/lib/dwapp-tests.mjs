@@ -10,7 +10,20 @@ class TestReporter {
 
     onSection(title) { }
 
-    onUnit(what, isOk) {
+    async onUnit(what, executor) {
+        this.onUnitStart(what);
+        try {
+            let result = await executor();
+            this.onUnitResult(what, result === true);
+        } catch (error) {
+            console.error(error);
+            this.onUnitResult(what, false);
+        }
+    }
+
+    onUnitStart(what) { }
+
+    onUnitResult(what, isOk) {
         if (isOk) {
             this.okCount++;
         } else {
@@ -32,8 +45,8 @@ class LogTestReporter extends TestReporter {
         console.log(`## ${title}`);
     }
 
-    onUnit(what, isOk) {
-        super.onUnit(what, isOk);
+    onUnitResult(what, isOk) {
+        super.onUnitResult(what, isOk);
         console.log(`- TEST ${what} - ${isOk ? "OK" : "KO"}`);
     }
 
@@ -48,11 +61,25 @@ class LogTestReporter extends TestReporter {
     }
 }
 
-function run(reporter = new LogTestReporter()) {
+function later(delay, value) {
+    return new Promise(resolve => setTimeout(resolve, delay, value));
+}
+
+async function run(reporter = new LogTestReporter()) {
     reporter.onStart();
     reporter.onSection('API');
-    reporter.onUnit('dwapp version defined', dwapp.version !== undefined);
-    reporter.onUnit('dwapp version well defined', dwapp.version == '0.0.0');
+    await reporter.onUnit('dwapp module imported', () => dwapp !== undefined);
+    await reporter.onUnit('dwapp version well defined', () => dwapp.version == '0.0.0');
+
+    // reporter.onSection('Dummy');
+    // for (let i = 0; i < 100; i++) {
+    //     await reporter.onUnit(`long ${i}`, async () => {
+    //         await later(100);
+    //         return true;
+    //     });
+    // }
+    // await reporter.onUnit('fail', () => false);
+
     reporter.onEnd();
 }
 
