@@ -32,12 +32,16 @@
             <a class="nav-link" href="/">Home{%if templateName == 'index' %} <span
                 class="sr-only">(current)</span>{% endif %}</a>
           </li>
+          <li class="nav-item{%if templateName == 'getting-started' %} active{% endif %}">
+            <a class="nav-link" href="/getting-started">Getting started{%if templateName == 'getting-started' %} <span
+                class="sr-only">(current)</span>{% endif %}</a>
+          </li>
           <li class="nav-item{%if templateName == 'try-it' %} active{% endif %}">
             <a class="nav-link" href="/try-it">Try-it{%if templateName == 'try-it' %} <span
                 class="sr-only">(current)</span>{% endif %}</a>
           </li>
-          <li class="nav-item{%if templateName == 'getting-started' %} active{% endif %}">
-            <a class="nav-link" href="/getting-started">Getting started{%if templateName == 'getting-started' %} <span
+          <li class="nav-item{%if templateName == 'testing' %} active{% endif %}">
+            <a class="nav-link" href="/testing">Testing{%if templateName == 'testing' %} <span
                 class="sr-only">(current)</span>{% endif %}</a>
           </li>
         </ul>

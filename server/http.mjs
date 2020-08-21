@@ -74,6 +74,9 @@ export function initHttpServer() {
     const gettingStartedView = (request, response) => {
         sendTemplate("getting-started.html", "getting-started", request, response);
     }
+    const testingView = (request, response) => {
+        sendTemplate("testing.html", "testing", request, response);
+    }
 
     // pages
 
@@ -85,6 +88,8 @@ export function initHttpServer() {
     urlMap.set("/try-it.html", tryItView);
     urlMap.set("/getting-started", gettingStartedView);
     urlMap.set("/getting-started.html", gettingStartedView);
+    urlMap.set("/testing", testingView);
+    urlMap.set("/testing.html", testingView);
 
     // server
 
